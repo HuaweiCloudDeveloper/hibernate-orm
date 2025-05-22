@@ -1787,8 +1787,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect(dialectClass = GaussDBDialect.class,
-			reason = "GaussDB driver does not support implicit type casting to Long or Duration.")
 	public void testDurationArithmeticWithLiterals(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -1891,8 +1889,6 @@ public class FunctionTests {
 	@SkipForDialect(dialectClass = SybaseDialect.class,
 			matchSubTypes = true,
 			reason = "numeric overflow")
-	@SkipForDialect(dialectClass = GaussDBDialect.class,
-			reason = "numeric overflow")
 	public void testDurationSubtractionWithDatetimeLiterals(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -1973,8 +1969,6 @@ public class FunctionTests {
 	}
 
 	@Test
-	@SkipForDialect( dialectClass = GaussDBDialect.class,
-			reason = "GaussDB driver does not support implicit type casting to Long or Duration.")
 	public void testIntervalDiffExpressions(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
