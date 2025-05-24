@@ -39,6 +39,9 @@ dependencies {
 
     api testLibs.log4j2
 
+    api(libs.gaussdbDialect) {
+        exclude group: 'org.hibernate.orm'
+    }
     implementation libs.hibernateModels
     implementation libs.jandex
     implementation testLibs.wildFlyTxnClient

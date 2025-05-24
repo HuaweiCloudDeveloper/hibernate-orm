@@ -29,6 +29,7 @@ dependencyResolutionManagement {
         }
 
         mavenCentral()
+        mavenLocal()
 
         if (System.getProperty('JPA_PREVIEW') != null) {
 			maven {
@@ -92,6 +93,10 @@ dependencyResolutionManagement {
             def micrometerVersion = version "micrometer", "1.14.1"
 
             def antVersion = version "ant", "1.10.15"
+
+            def gaussdbDialectVersion = version "gaussdbDialect", "1.0.0-SNAPSHOT"
+
+            library( "gaussdbDialect", "com.huaweicloud.gaussdb", "gaussdb-hibernate-dialect" ).versionRef( gaussdbDialectVersion )
 
             library( "antlr", "org.antlr", "antlr4" ).versionRef( antlrVersion )
             library( "antlrRuntime", "org.antlr", "antlr4-runtime" ).versionRef( antlrVersion)

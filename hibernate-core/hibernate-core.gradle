@@ -25,6 +25,9 @@ dependencies {
     api jakartaLibs.jpa
     api jakartaLibs.jta
 
+    implementation(libs.gaussdbDialect) {
+        exclude group: 'org.hibernate.orm'
+    }
     implementation libs.hibernateModels
     implementation libs.classmate
     implementation libs.byteBuddy
