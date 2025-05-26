@@ -22,6 +22,7 @@ import org.hibernate.TransactionException;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.community.dialect.AltibaseDialect;
 import org.hibernate.community.dialect.FirebirdDialect;
+import org.hibernate.community.dialect.GaussDBDialect;
 import org.hibernate.dialect.AbstractHANADialect;
 import org.hibernate.dialect.CockroachDialect;
 import org.hibernate.dialect.DerbyDialect;
@@ -1184,6 +1185,7 @@ public class LockTest extends BaseEntityManagerFunctionalTestCase {
 	@Test(timeout = 70 * 1000) //70 seconds
 	@TestForIssue( jiraKey = "HHH-13135" )
 	@SkipForDialect(value = MySQLDialect.class, strictMatching = true, comment = "With InnoDB, a FK constraint check acquires a shared lock that isn't compatible with an exclusive lock")
+	@SkipForDialect(value = GaussDBDialect.class, comment = "Seems like FK constraint checks are not compatible with exclusive locks")
 	@SkipForDialect(value = MariaDBDialect.class, strictMatching = true, comment = "With InnoDB, a FK constraint check acquires a shared lock that isn't compatible with an exclusive lock")
 	@SkipForDialect(value = HSQLDialect.class, comment = "Seems like FK constraint checks are not compatible with exclusive locks")
 	@SkipForDialect(value = AbstractHANADialect.class, comment = "Seems like FK constraint checks are not compatible with exclusive locks")
@@ -1222,6 +1224,7 @@ public class LockTest extends BaseEntityManagerFunctionalTestCase {
 
 	@Test(timeout = 70 * 1000) //70 seconds
 	@TestForIssue( jiraKey = "HHH-13135" )
+	@SkipForDialect(value = GaussDBDialect.class, comment = "FK constraint checks are not compatible with exclusive locks")
 	@SkipForDialect(value = MySQLDialect.class, strictMatching = true, comment = "With InnoDB, a FK constraint check acquires a shared lock that isn't compatible with an exclusive lock")
 	@SkipForDialect(value = MariaDBDialect.class, strictMatching = true, comment = "With InnoDB, a FK constraint check acquires a shared lock that isn't compatible with an exclusive lock")
 	@SkipForDialect(value = HSQLDialect.class, comment = "Seems like FK constraint checks are not compatible with exclusive locks")

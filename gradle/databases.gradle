@@ -99,6 +99,17 @@ ext {
 //                        'jdbc.datasource' : 'net.sourceforge.jtds.jdbcx.JtdsDataSource',
                         'connection.init_sql' : 'set ansinull on'
                 ],
+                gaussdb: [
+                        'db.dialect'         : 'org.hibernate.community.dialect.GaussDBDialect',
+                        'jdbc.driver'        : 'com.huawei.gaussdb.jdbc.Driver',
+                        'jdbc.user'          : 'hibernate_orm_test',
+                        'jdbc.pass'          : 'Hibernate_orm_test@1234',
+                        // Disable prepared statement caching to avoid issues with changing schemas
+                        // Make batch verification work, see https://bbs.huaweicloud.com/forum/thread-02104174303512776081-1-1.html
+                        'jdbc.url'           : 'jdbc:gaussdb://' + dbHost + '/hibernate_orm_test?currentSchema=test&preparedStatementCacheQueries=0&batchMode=off',
+                        'jdbc.datasource'    : 'com.huawei.gaussdb.jdbc.Driver',
+                        'connection.init_sql': ''
+                ],
                 sybase_jconn_ci : [
                         'db.dialect' : 'org.hibernate.dialect.SybaseASEDialect',
                         'jdbc.driver': 'com.sybase.jdbc4.jdbc.SybDriver',

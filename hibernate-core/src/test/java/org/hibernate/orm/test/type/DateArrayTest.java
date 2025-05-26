@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
+import org.hibernate.community.dialect.GaussDBDialect;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.HSQLDialect;
 import org.hibernate.dialect.OracleDialect;
@@ -115,6 +116,7 @@ public class DateArrayTest {
 
 	@Test
 	@SkipForDialect(dialectClass = PostgresPlusDialect.class, reason = "Seems that comparing date[] through JDBC is buggy. ERROR: operator does not exist: timestamp without time zone[] = date[]")
+	@SkipForDialect(dialectClass = GaussDBDialect.class, reason = "Seems that comparing date[] through JDBC is buggy. ERROR: operator does not exist: timestamp without time zone[] = date[]")
 	public void testQuery(SessionFactoryScope scope) {
 		scope.inSession( em -> {
 			TypedQuery<TableWithDateArrays> tq = em.createNamedQuery( "TableWithDateArrays.JPQL.getByData", TableWithDateArrays.class );
@@ -138,6 +140,7 @@ public class DateArrayTest {
 	@SkipForDialect(dialectClass = HSQLDialect.class, reason = "HSQL does not like plain parameters in the distinct from predicate")
 	@SkipForDialect(dialectClass = OracleDialect.class, reason = "Oracle requires a special function to compare XML")
 	@SkipForDialect(dialectClass = PostgresPlusDialect.class, reason = "Seems that comparing date[] through JDBC is buggy. ERROR: operator does not exist: timestamp without time zone[] = date[]")
+	@SkipForDialect( dialectClass = GaussDBDialect.class, reason = "type:resolved.Seems that comparing date[] through JDBC is buggy. ERROR: operator does not exist: timestamp without time zone[] = date[]")
 	public void testNativeQuery(SessionFactoryScope scope) {
 		scope.inSession( em -> {
 			final String op = em.getJdbcServices().getDialect().supportsDistinctFromPredicate() ? "IS NOT DISTINCT FROM" : "=";
@@ -154,6 +157,7 @@ public class DateArrayTest {
 	@Test
 	@RequiresDialectFeature(feature = DialectFeatureChecks.SupportsStructuralArrays.class)
 	@SkipForDialect(dialectClass = PostgresPlusDialect.class, reason = "The 'date' type is a synonym for timestamp on Oracle and PostgresPlus, so untyped reading produces Timestamps")
+	@SkipForDialect( dialectClass = GaussDBDialect.class, reason = "type:resolved.The 'date' type is a synonym for timestamp on Oracle and PostgresPlus, so untyped reading produces Timestamps")
 	public void testNativeQueryUntyped(SessionFactoryScope scope) {
 		scope.inSession( em -> {
 			Query q = em.createNamedQuery( "TableWithDateArrays.Native.getByIdUntyped" );

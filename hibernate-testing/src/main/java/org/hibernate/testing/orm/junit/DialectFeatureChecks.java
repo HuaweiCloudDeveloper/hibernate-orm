@@ -10,6 +10,7 @@ import java.sql.Types;
 
 import org.hibernate.boot.model.TruthValue;
 import org.hibernate.community.dialect.FirebirdDialect;
+import org.hibernate.community.dialect.GaussDBDialect;
 import org.hibernate.community.dialect.InformixDialect;
 import org.hibernate.dialect.AbstractHANADialect;
 import org.hibernate.dialect.CockroachDialect;
@@ -498,6 +499,7 @@ abstract public class DialectFeatureChecks {
 					|| dialect instanceof FirebirdDialect
 					|| dialect instanceof DB2Dialect && ( (DB2Dialect) dialect ).getDB2Version().isBefore( 11 ) )
 					|| dialect instanceof InformixDialect
+					|| dialect instanceof GaussDBDialect
 					|| dialect instanceof MariaDBDialect;
 		}
 	}
@@ -515,6 +517,7 @@ abstract public class DialectFeatureChecks {
 				|| dialect instanceof H2Dialect
 				|| dialect instanceof SQLServerDialect
 				|| dialect instanceof PostgreSQLDialect
+				|| dialect instanceof GaussDBDialect
 				|| dialect instanceof DB2Dialect
 				|| dialect instanceof OracleDialect
 				|| dialect instanceof SybaseDialect
