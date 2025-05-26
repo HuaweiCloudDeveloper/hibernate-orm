@@ -1159,6 +1159,7 @@ public class FunctionTests {
 	@SkipForDialect(dialectClass = DB2Dialect.class, majorVersion = 10, minorVersion = 5, reason = "On this version the length of the cast to the parameter appears to be > 2")
 	@SkipForDialect( dialectClass = AltibaseDialect.class, reason = "Altibase cast to raw does not do truncatation")
 	@SkipForDialect(dialectClass = HSQLDialect.class, reason = "HSQL interprets string as hex literal and produces error")
+	@SkipForDialect(dialectClass = GaussDBDialect.class, reason = "GaussDB bytea doesn't have a length")
 	public void testCastBinaryWithLength(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
@@ -1173,7 +1174,6 @@ public class FunctionTests {
 
 	@Test
 	@SkipForDialect(dialectClass = DerbyDialect.class, reason = "Derby doesn't support casting varchar to binary")
-	@SkipForDialect(dialectClass = GaussDBDialect.class, reason = "GaussDB bytea doesn't have a length")
 	public void testCastBinaryWithLengthForOracle(SessionFactoryScope scope) {
 		scope.inTransaction(
 				session -> {
