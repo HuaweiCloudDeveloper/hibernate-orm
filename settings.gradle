@@ -94,7 +94,7 @@ dependencyResolutionManagement {
             def micrometerVersion = version "micrometer", "1.10.4"
 
             def hibernateValidatorVersion = version "hibernateValidator", "8.0.0.Final"
-            def gaussdbDialectVersion = version "gaussdbDialect", "1.0.0-SNAPSHOT"
+            def gaussdbDialectVersion = version "gaussdbDialect", "1.0.1-SNAPSHOT"
 
             library( "gaussdbDialect", "com.huaweicloud.gaussdb", "gaussdb-hibernate-dialect" ).versionRef( gaussdbDialectVersion )
             library( "antlr", "org.antlr", "antlr4" ).versionRef( antlrVersion )
@@ -127,7 +127,7 @@ dependencyResolutionManagement {
 
             library( "vibur", "org.vibur", "vibur-dbcp" ).versionRef( viburVersion )
 
-	    library( "ucp", "com.oracle.database.jdbc", "ucp11" ).versionRef( ucpVersion )
+	        library( "ucp", "com.oracle.database.jdbc", "ucp11" ).versionRef( ucpVersion )
 
             library( "ojdbc11", "com.oracle.database.jdbc", "ojdbc11" ).versionRef( ucpVersion )
 
