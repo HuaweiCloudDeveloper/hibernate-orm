@@ -12,6 +12,7 @@ import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
 import org.hibernate.annotations.FractionalSeconds;
 import org.hibernate.boot.spi.MetadataImplementor;
@@ -176,7 +177,14 @@ public class FractionalSecondsTests {
 	@SkipForDialect(dialectClass = HANADialect.class, reason = "HANA does not support specifying a precision on timestamps")
 	@SkipForDialect(dialectClass = InformixDialect.class, reason = "Informix only supports precision from 1 to 5")
 	void testUsage9(SessionFactoryScope scope) {
-		final Instant start = Instant.now();
+		final Dialect dialect = scope.getSessionFactory().getJdbcServices().getDialect();
+		final Instant start;
+		if ( dialect.getDefaultTimestampPrecision() == 6 ) {
+			start = Instant.now().truncatedTo( ChronoUnit.MICROS );
+		}
+		else {
+			start = Instant.now();
+		}
 
 		scope.inTransaction( (session) -> {
 			final TestEntity9 testEntity = new TestEntity9();
